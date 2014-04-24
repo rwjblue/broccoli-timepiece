@@ -9,6 +9,7 @@ Uses the standard `broccoli` watcher to build a tree (from the `Brocfile.js` in 
 Pass the name of the directory to output to as the first commandline parameter.
 
 ```bash
+npm install -g broccoli-timepiece
 broccoli-timepiece dist/
 ```
 
