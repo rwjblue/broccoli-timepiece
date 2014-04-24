@@ -2,6 +2,9 @@
 
 It's what you use to watch things, you know?
 
+OK, seriously, broccoli-timepiece is a command line utlility that uses the Watcher and Builder that
+come with `broccoli` to provide rebuild semantics without running a webserver.
+
 ## Usage
 
 Uses the standard `broccoli` watcher to build a tree (from the `Brocfile.js` in your projects root), and output to a directory.
