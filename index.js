@@ -4,7 +4,7 @@ var fs       = require('fs');
 var path     = require('path');
 var chalk    = require('chalk');
 var rimraf   = require('rimraf');
-var helpers  = require('broccoli-kitchen-sink-helpers')
+var helpers  = require('broccoli-kitchen-sink-helpers');
 var Watcher  = require('broccoli/lib/watcher');
 var broccoli = require('broccoli');
 
