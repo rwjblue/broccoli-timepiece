@@ -8,21 +8,16 @@ var helpers  = require('broccoli-kitchen-sink-helpers');
 var Watcher  = require('broccoli/lib/watcher');
 var broccoli = require('broccoli');
 
-function createWatcher(destDir) {
+function createWatcher(destDir, interval) {
   var tree    = broccoli.loadBrocfile();
   var builder = new broccoli.Builder(tree);
-  var watcher = new Watcher(builder);
+  var watcher = new Watcher(builder, {interval: interval || 100});
 
-  watcher.on('change', function(srcDir) {
+  watcher.on('change', function(results) {
     rimraf.sync(destDir);
-    helpers.copyRecursivelySync(srcDir, destDir);
+    helpers.copyRecursivelySync(results.directory, destDir);
 
-    var message = "Build successful";
-
-    if (builder.buildTime) {
-      message += ' - ' + builder.buildTime + 'ms.\n';
-    }
-    console.log(chalk.green(message));
+    console.log(chalk.green("Build successful - " + Math.floor(results.totalTime / 1e6) + 'ms'));
   });
 
   watcher.on('error', function(err) {
@@ -32,4 +27,4 @@ function createWatcher(destDir) {
   return watcher;
 }
 
-createWatcher(process.argv[2]);
+createWatcher(process.argv[2], process.argv[3]);
