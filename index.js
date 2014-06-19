@@ -13,6 +13,10 @@ function createWatcher(destDir, interval) {
   var builder = new broccoli.Builder(tree);
   var watcher = new Watcher(builder, {interval: interval || 100});
 
+  var atExit = function() { builder.cleanup(); };
+  process.on('SIGINT', atExit);
+  process.on('SIGTERM', atExit);
+
   watcher.on('change', function(results) {
     rimraf.sync(destDir);
     helpers.copyRecursivelySync(results.directory, destDir);
