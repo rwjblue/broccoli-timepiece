@@ -15,7 +15,7 @@ function createWatcher(destDir, interval) {
 
   var atExit = function() { 
     builder.cleanup(); 
-    process.exit();
+    process.exit(1);
   };
   
   process.on('SIGINT', atExit);
