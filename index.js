@@ -13,7 +13,11 @@ function createWatcher(destDir, interval) {
   var builder = new broccoli.Builder(tree);
   var watcher = new Watcher(builder, {interval: interval || 100});
 
-  var atExit = function() { builder.cleanup(); };
+  var atExit = function() {
+    builder.cleanup();
+    process.exit(1);
+  };
+
   process.on('SIGINT', atExit);
   process.on('SIGTERM', atExit);
 
