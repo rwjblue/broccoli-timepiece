@@ -7,6 +7,7 @@ var rimraf   = require('rimraf');
 var helpers  = require('broccoli-kitchen-sink-helpers');
 var Watcher  = require('broccoli/lib/watcher');
 var broccoli = require('broccoli');
+var argv     = require('minimist')(process.argv.slice(2), { boolean: 'v' });
 
 function createWatcher(destDir, interval) {
   var tree    = broccoli.loadBrocfile();
@@ -26,9 +27,10 @@ function createWatcher(destDir, interval) {
 
   watcher.on('error', function(err) {
     console.log(chalk.red('\n\nBuild failed.\n'));
+    argv.v && console.log(err.toString());
   });
 
   return watcher;
 }
 
-createWatcher(process.argv[2], process.argv[3]);
+createWatcher(argv._[0], argv.i);
