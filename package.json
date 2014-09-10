@@ -21,7 +21,8 @@
     "broccoli-kitchen-sink-helpers": "~0.2.0",
     "rimraf": "~2.2.6",
     "chalk": "~0.4.0",
-    "broccoli": "~0.11.0"
+    "broccoli": "~0.11.0",
+    "minimist": "~1.1.0"
   },
   "devDependencies": {
     "mocha": "~1.18.2",
