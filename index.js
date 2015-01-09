@@ -14,8 +14,10 @@ function createWatcher(destDir, interval) {
   var watcher = new Watcher(builder, {interval: interval || 100});
 
   var atExit = function() { 
-    builder.cleanup(); 
-    process.exit(1);
+    builder.cleanup()
+      .then(function() {
+        process.exit(1);
+      });
   };
   
   process.on('SIGINT', atExit);
