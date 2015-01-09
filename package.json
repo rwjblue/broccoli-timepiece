@@ -1,6 +1,6 @@
 {
   "name": "broccoli-timepiece",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Command line application using Broccoli to rebuild on file changes.",
   "main": "index.js",
   "author": "Robert Jackson",
@@ -18,14 +18,14 @@
     "javascript"
   ],
   "dependencies": {
-    "broccoli-kitchen-sink-helpers": "~0.2.0",
-    "rimraf": "~2.2.6",
-    "chalk": "~0.4.0",
-    "broccoli": "~0.11.0"
+    "broccoli-kitchen-sink-helpers": "~0.2.5",
+    "rimraf": "~2.2.8",
+    "chalk": "~0.5.1",
+    "broccoli": "~0.13.3"
   },
   "devDependencies": {
-    "mocha": "~1.18.2",
-    "rimraf": "~2.2.6",
+    "mocha": "~2.1.0",
+    "rimraf": "~2.2.8",
     "expect.js": "~0.3.1"
   }
 }
