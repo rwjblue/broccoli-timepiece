@@ -1,6 +1,6 @@
 {
   "name": "broccoli-timepiece",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Command line application using Broccoli to rebuild on file changes.",
   "main": "index.js",
   "author": "Robert Jackson",
