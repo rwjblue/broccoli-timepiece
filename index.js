@@ -16,6 +16,7 @@ function createWatcher(destDir, interval) {
   var atExit = function() { 
     builder.cleanup()
       .then(function() {
+        rimraf.sync("./broccoli-timepiece-building.json");
         rimraf.sync("./broccoli-timepiece-failure.json");
         process.exit(1);
       });
@@ -24,9 +25,14 @@ function createWatcher(destDir, interval) {
   process.on('SIGINT', atExit);
   process.on('SIGTERM', atExit);
 
+  watcher.on('start', function(changedDirs) {
+    fs.appendFile("./broccoli-timepiece-building.json", JSON.stringify(changedDirs ? changedDirs : [], null, 2));
+  });
+
   watcher.on('change', function(results) {
-    rimraf.sync(destDir);
+    rimraf.sync("./broccoli-timepiece-building.json");
     rimraf.sync("./broccoli-timepiece-failure.json");
+    rimraf.sync(destDir);
 
     helpers.copyRecursivelySync(results.directory, destDir);
 
@@ -34,6 +40,9 @@ function createWatcher(destDir, interval) {
   });
 
   watcher.on('error', function(error) {
+    rimraf.sync("./broccoli-timepiece-building.json");
+    rimraf.sync("./broccoli-timepiece-failure.json");
+
     // Output to the console
     console.log(chalk.red('\n\nBuild failed.'));
 
@@ -54,7 +63,6 @@ function createWatcher(destDir, interval) {
     }
 
     // Write a JSON dump file
-    rimraf.sync("./broccoli-timepiece-failure.json");
     fs.appendFile("./broccoli-timepiece-failure.json", JSON.stringify({
       message: error.message,
       file: error.file,
