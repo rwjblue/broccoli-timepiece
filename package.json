@@ -15,17 +15,21 @@
   },
   "keywords": [
     "broccoli-plugin",
-    "javascript"
+    "javascript",
+    "watch",
+    "watcher",
+    "sane"
   ],
   "dependencies": {
-    "broccoli-kitchen-sink-helpers": "~0.2.5",
-    "rimraf": "~2.2.8",
-    "chalk": "~0.5.1",
-    "broccoli": "~0.13.3"
+    "broccoli": "^0.16.9",
+    "broccoli-kitchen-sink-helpers": "^0.3.1",
+    "broccoli-sane-watcher": "^1.1.4",
+    "chalk": "^1.1.1",
+    "minimist": "^1.2.0",
+    "rimraf": "^2.5.2"
   },
   "devDependencies": {
-    "mocha": "~2.1.0",
-    "rimraf": "~2.2.8",
+    "mocha": "^2.4.5",
     "expect.js": "~0.3.1"
   }
 }
