@@ -5,22 +5,23 @@ var path     = require('path');
 var chalk    = require('chalk');
 var rimraf   = require('rimraf');
 var helpers  = require('broccoli-kitchen-sink-helpers');
-var Watcher  = require('broccoli/lib/watcher');
+var sane     = require('broccoli-sane-watcher');
+var minimist = require('minimist');
 var broccoli = require('broccoli');
 
-function createWatcher(destDir, interval) {
+function createWatcher(destDir, argv) {
   var tree    = broccoli.loadBrocfile();
   var builder = new broccoli.Builder(tree);
-  var watcher = new Watcher(builder, {interval: interval || 100});
+  var watcher = new sane(builder, {verbose: argv.verbose, watchman: argv.watchman});
 
-  var atExit = function() { 
+  var atExit = function() {
     builder.cleanup()
       .then(function() {
         rimraf.sync("./broccoli-timepiece-failure.json");
         process.exit(1);
       });
   };
-  
+
   process.on('SIGINT', atExit);
   process.on('SIGTERM', atExit);
 
@@ -68,4 +69,18 @@ function createWatcher(destDir, interval) {
   return watcher;
 }
 
-createWatcher(process.argv[2], process.argv[3]);
+var opts = {
+  default: {verbose: false, watchman: false},
+  boolean: ['verbose', 'watchman'],
+  alias: {verbose: ['v'], watchman: ['w']}
+};
+
+var argv = minimist(process.argv.slice(2), opts);
+
+if(argv._.length === 0) {
+  var msg = 'Usage: broccoli-timepiece <directory> [--verbose] [--watchman]';
+  console.error(msg);
+  process.exit();
+}
+
+createWatcher(argv._[0], argv);
