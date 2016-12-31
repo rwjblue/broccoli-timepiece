@@ -18,10 +18,10 @@
     "javascript"
   ],
   "dependencies": {
+    "broccoli": "file:../broccoli",
     "broccoli-kitchen-sink-helpers": "~0.2.5",
-    "rimraf": "~2.2.8",
     "chalk": "~0.5.1",
-    "broccoli": "~0.13.3"
+    "rimraf": "~2.2.8"
   },
   "devDependencies": {
     "mocha": "~2.1.0",
